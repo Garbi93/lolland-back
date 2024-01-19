@@ -118,7 +118,7 @@ public class ProductService {
     }
 
     // --------------------------- 상품 리스트 / 페이징 로직 ---------------------------
-    public Map<String, Object> list(Integer page) {
+    public Map<String, Object> list(Integer page, String keyword) {
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> pageInfo = new HashMap<>();
 
@@ -128,19 +128,29 @@ public class ProductService {
         int endPageNumber = startPageNumber + 9;
         endPageNumber = Math.min(endPageNumber, lastPageNumber);
 
+        int prevPageNumber = startPageNumber - 10;
+        int nextPageNumber = endPageNumber + 1;
+
+        pageInfo.put("currentPageNumber", page);
         pageInfo.put("startPageNumber", startPageNumber);
         pageInfo.put("endPageNumber", endPageNumber);
+        if (prevPageNumber > 0) {
+            pageInfo.put("prevPageNumber", prevPageNumber);
+        }
+        if (nextPageNumber <=lastPageNumber) {
+            pageInfo.put("nextPageNumber", nextPageNumber);
+        }
 
         int from = (page - 1) * 10;
 
-        List<Product> product = productMapper.list(from);
+        List<Product> product = productMapper.list(from, "%" + keyword + "%");
         product.forEach(productListImg -> {
             List<ProductImg> productsImg = mainImgMapper.selectNamesByProductId(productListImg.getProduct_id());
             productsImg.forEach(img -> img.setMain_img_uri(urlPrefix + "lolland/product/productMainImg/" + productListImg.getProduct_id() + "/" + img.getMain_img_uri()));
             productListImg.setMainImgs(productsImg);
         });
 
-        map.put("product",product);
+        map.put("product", product);
         map.put("pageInfo", pageInfo);
         return map;
     }
@@ -192,6 +202,7 @@ public class ProductService {
         productMapper.deleteByProduct(productId);
         // 5. 제조사 삭제
         companyMapper.deleteByCompany(productId);
+        // 6. 리뷰 삭제
     }
 
     // ------------ 메인 이미지 삭제 ------------

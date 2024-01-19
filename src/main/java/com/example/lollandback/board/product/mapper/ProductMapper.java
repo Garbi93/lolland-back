@@ -43,12 +43,24 @@ public interface ProductMapper {
 
 
     @Select("""
-            SELECT *
-            FROM product
+            SELECT 
+                p.product_id,
+                p.product_name,
+                p.product_price,
+                c.company_name,
+                ca.category_id,
+                sc.subcategory_id
+            FROM product p JOIN company c 
+            ON p.company_id = c.company_id
+            JOIN category ca ON p.category_id = ca.category_id
+            JOIN subcategory sc ON p.category_id = sc.category_id
+            WHERE 
+                p.product_name LIKE #{keyword}
+                OR c.company_name LIKE #{keyword}
             ORDER BY product_reg_time DESC
             LIMIT #{from}, 10
             """)
-    List<Product> list(Integer from);
+    List<Product> list(Integer from, String keyword);
 
     @Select("""
             SELECT *
