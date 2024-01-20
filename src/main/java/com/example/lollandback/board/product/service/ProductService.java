@@ -149,6 +149,7 @@ public class ProductService {
             productsImg.forEach(img -> img.setMain_img_uri(urlPrefix + "lolland/product/productMainImg/" + productListImg.getProduct_id() + "/" + img.getMain_img_uri()));
             productListImg.setMainImgs(productsImg);
         });
+        System.out.println("product = " + product);
 
         map.put("product", product);
         map.put("pageInfo", pageInfo);

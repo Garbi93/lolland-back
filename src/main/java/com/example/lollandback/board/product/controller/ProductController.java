@@ -38,7 +38,6 @@ public class ProductController {
                               @RequestParam(value = "options", required = false) String options,
                               @RequestParam(value = "mainImg[]", required = false) MultipartFile[] mainImg,
                               @RequestParam(value = "contentImg[]", required = false) MultipartFile[] contentImg) throws IOException {
-        System.out.println("product = " + product);
         ObjectMapper objectMapper = new ObjectMapper();
         List<ProductOptionsDto> optionsList = objectMapper.readValue(options, new TypeReference<>() {
         });
@@ -53,8 +52,6 @@ public class ProductController {
     @GetMapping("list")
     public Map<String, Object> list(@RequestParam(value = "p", defaultValue = "1") Integer page,
                                     @RequestParam(value = "k", defaultValue = "") String keyword) {
-
-
         return productService.list(page, keyword);
     }
 
