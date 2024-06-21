@@ -25,7 +25,7 @@
 <hr/>
 
 ### 💻 개발 환경 
-<img width="1154" alt="스크린샷 2024-06-20 오후 3 15 09" src="https://github.com/Garbi93/lolland-front/assets/143367033/16b93743-c4ef-46b5-a7c8-1d72aef5e2a7">
+<img width="1154" alt="스크린샷 2024-06-21 오후 11 52 04" src="https://github.com/Garbi93/lolland-front/assets/143367033/04c3099b-6407-4e2e-9f9a-4bca7b1db9df">
 <img width="1154" alt="스크린샷 2024-06-20 오후 3 18 05" src="https://github.com/Garbi93/lolland-front/assets/143367033/323bff58-2917-4eae-91b0-536f0f2f3e93">
 
 <hr/>
